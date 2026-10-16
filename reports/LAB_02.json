@@ -1,89 +1,128 @@
 {
   "lab": "02",
   "schema": {
-    "args_representation": null,
-    "optional_fields": null,
-    "union_types": null,
-    "strict_compiles": null
+    "args_representation": "args_json",
+    "optional_fields": 0,
+    "union_types": 0,
+    "strict_compiles": true
   },
   "fixture_validation": [
     {
       "plan": "good_export_fix.json",
-      "valid": null,
-      "failures": null
+      "valid": true,
+      "failures": []
     },
     {
       "plan": "good_triage.json",
-      "valid": null,
-      "failures": null
+      "valid": true,
+      "failures": []
     },
     {
       "plan": "s18_specimen.json",
-      "valid": null,
-      "failures": null
+      "valid": false,
+      "failures": [
+        {
+          "step": 2,
+          "check": 2
+        },
+        {
+          "step": 3,
+          "check": 3
+        },
+        {
+          "step": 5,
+          "check": 1
+        }
+      ]
     }
   ],
   "ladder": {
     "looping": {
       "q1": {
-        "fired": null,
-        "ids": []
+        "fired": true,
+        "ids": [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ]
       },
       "q2": {
-        "fired": null,
-        "ids": []
+        "fired": true,
+        "ids": [
+          1,
+          2
+        ]
       },
       "q3": {
-        "fired": null,
-        "ids": []
+        "fired": true,
+        "ids": [
+          3,
+          4,
+          5,
+          6
+        ]
       }
     },
     "s49": {
       "q1": {
-        "fired": null,
-        "ids": []
+        "fired": true,
+        "ids": [
+          [
+            2,
+            4
+          ]
+        ]
       },
       "q2": {
-        "fired": null,
+        "fired": false,
         "ids": []
       },
       "q3": {
-        "fired": null,
-        "ids": []
+        "fired": true,
+        "ids": [
+          6
+        ]
       }
     }
   },
   "diff_s49": {
     "steps": {
-      "1": null,
-      "2": null,
-      "3": null,
-      "4": null,
-      "5": null,
-      "6": null
+      "1": "executed",
+      "2": "executed",
+      "3": "executed",
+      "4": "executed",
+      "5": "executed",
+      "6": "skipped"
     },
-    "extra": []
+    "extra": [
+      4
+    ]
   },
   "results": {
     "agent": {
-      "runs": null,
-      "passes": null,
+      "runs": 18,
+      "passes": 10,
       "per_issue": {
-        "4201": null,
-        "4202": null,
-        "4203": null,
-        "4204": null,
-        "4205": null,
-        "4206": null
+        "4201": 3,
+        "4202": 0,
+        "4203": 2,
+        "4204": 2,
+        "4205": 2,
+        "4206": 1
       },
-      "sweep_min": null,
-      "sweep_max": null,
-      "mean_tokens": null,
-      "p50_latency_s": null,
-      "max_latency_s": null,
+      "sweep_min": 3,
+      "sweep_max": 4,
+      "mean_tokens": 12537.777777777777,
+      "p50_latency_s": 6.862,
+      "max_latency_s": 9.544,
       "plan_overhead_share": null,
       "critique_overhead_share": null,
-      "runs_with_repeat": null,
+      "runs_with_repeat": 6,
       "off_plan": null,
       "revisions_mean": null,
       "revisions_max": null,
@@ -95,27 +134,27 @@
       "drafts_held": null
     },
     "planned_off": {
-      "runs": null,
-      "passes": null,
+      "runs": 18,
+      "passes": 8,
       "per_issue": {
-        "4201": null,
-        "4202": null,
-        "4203": null,
-        "4204": null,
-        "4205": null,
-        "4206": null
+        "4201": 3,
+        "4202": 0,
+        "4203": 2,
+        "4204": 0,
+        "4205": 3,
+        "4206": 0
       },
-      "sweep_min": null,
-      "sweep_max": null,
-      "mean_tokens": null,
-      "p50_latency_s": null,
-      "max_latency_s": null,
-      "plan_overhead_share": null,
+      "sweep_min": 2,
+      "sweep_max": 3,
+      "mean_tokens": 9064.444444444445,
+      "p50_latency_s": 8.101,
+      "max_latency_s": 13.591,
+      "plan_overhead_share": 0.2909896119683339,
       "critique_overhead_share": null,
-      "runs_with_repeat": null,
-      "off_plan": null,
-      "revisions_mean": null,
-      "revisions_max": null,
+      "runs_with_repeat": 0,
+      "off_plan": 0,
+      "revisions_mean": 1.1666666666666667,
+      "revisions_max": 2,
       "rounds_mean": null,
       "rounds_max": null,
       "drafts_changed": null,
@@ -124,63 +163,532 @@
       "drafts_held": null
     },
     "planned_self": {
-      "runs": null,
-      "passes": null,
+      "runs": 18,
+      "passes": 6,
       "per_issue": {
-        "4201": null,
-        "4202": null,
-        "4203": null,
-        "4204": null,
-        "4205": null,
-        "4206": null
+        "4201": 3,
+        "4202": 0,
+        "4203": 2,
+        "4204": 0,
+        "4205": 1,
+        "4206": 0
       },
-      "sweep_min": null,
-      "sweep_max": null,
-      "mean_tokens": null,
-      "p50_latency_s": null,
-      "max_latency_s": null,
-      "plan_overhead_share": null,
-      "critique_overhead_share": null,
-      "runs_with_repeat": null,
-      "off_plan": null,
-      "revisions_mean": null,
-      "revisions_max": null,
-      "rounds_mean": null,
-      "rounds_max": null,
-      "drafts_changed": null,
-      "drafts_fixed": null,
-      "drafts_broken": null,
-      "drafts_held": null
+      "sweep_min": 1,
+      "sweep_max": 3,
+      "mean_tokens": 11654.722222222223,
+      "p50_latency_s": 9.725,
+      "max_latency_s": 13.826,
+      "plan_overhead_share": 0.23897436231782532,
+      "critique_overhead_share": 0.18389246582767854,
+      "runs_with_repeat": 0,
+      "off_plan": 0,
+      "revisions_mean": 1.2777777777777777,
+      "revisions_max": 2,
+      "rounds_mean": 0.8888888888888888,
+      "rounds_max": 2,
+      "drafts_changed": 1,
+      "drafts_fixed": 0,
+      "drafts_broken": 0,
+      "drafts_held": 0
     },
     "planned_external": {
-      "runs": null,
-      "passes": null,
+      "runs": 18,
+      "passes": 5,
       "per_issue": {
-        "4201": null,
-        "4202": null,
-        "4203": null,
-        "4204": null,
-        "4205": null,
-        "4206": null
+        "4201": 3,
+        "4202": 0,
+        "4203": 0,
+        "4204": 0,
+        "4205": 2,
+        "4206": 0
       },
-      "sweep_min": null,
-      "sweep_max": null,
-      "mean_tokens": null,
-      "p50_latency_s": null,
-      "max_latency_s": null,
-      "plan_overhead_share": null,
-      "critique_overhead_share": null,
-      "runs_with_repeat": null,
-      "off_plan": null,
-      "revisions_mean": null,
-      "revisions_max": null,
-      "rounds_mean": null,
-      "rounds_max": null,
-      "drafts_changed": null,
-      "drafts_fixed": null,
-      "drafts_broken": null,
-      "drafts_held": null
+      "sweep_min": 1,
+      "sweep_max": 2,
+      "mean_tokens": 9445.722222222223,
+      "p50_latency_s": 9.795,
+      "max_latency_s": 14.073,
+      "plan_overhead_share": 0.2804223856094208,
+      "critique_overhead_share": 0.06042024730436889,
+      "runs_with_repeat": 0,
+      "off_plan": 0,
+      "revisions_mean": 1.1666666666666667,
+      "revisions_max": 2,
+      "rounds_mean": 1.0555555555555556,
+      "rounds_max": 2,
+      "drafts_changed": 5,
+      "drafts_fixed": 2,
+      "drafts_broken": 0,
+      "drafts_held": 1
     }
   },
-  "context": []
+  "context": [
+    {
+      "run_id": "notes-4203-s01-334d0c",
+      "issue": 4203,
+      "notes_shown": false,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "src/ingest/schema.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/i18n/fr.json",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "test/dates.test.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/i18n/en.json",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/api/router.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/ingest/errors.ts",
+          "truth": "yes",
+          "answer": "no"
+        }
+      ],
+      "right": 4
+    },
+    {
+      "run_id": "notes-4203-s02-2a9980",
+      "issue": 4203,
+      "notes_shown": false,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "src/util/dates.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/notifications/rollup.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/i18n/en.json",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "README.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "src/storage/index.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "truth": "yes",
+          "answer": "no"
+        }
+      ],
+      "right": 4
+    },
+    {
+      "run_id": "notes-4204-s01-f5a0d8",
+      "issue": 4204,
+      "notes_shown": false,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "CHANGELOG.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "docs/ARCHITECTURE.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "src/ingest/queue.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/i18n/fr.json",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/api/reports.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/notifications/rollup.ts",
+          "truth": "yes",
+          "answer": "yes"
+        }
+      ],
+      "right": 4
+    },
+    {
+      "run_id": "notes-4204-s02-87f89a",
+      "issue": 4204,
+      "notes_shown": false,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "CHANGELOG.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "README.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "test/parser.test.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "docs/API.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "src/i18n/en.json",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/ingest/errors.ts",
+          "truth": "no",
+          "answer": "no"
+        }
+      ],
+      "right": 3
+    },
+    {
+      "run_id": "notes-4206-s01-abc87a",
+      "issue": 4206,
+      "notes_shown": false,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "docs/API.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "src/util/retry.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "docs/ARCHITECTURE.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "src/util/strings.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/api/users.ts",
+          "truth": "no",
+          "answer": "no"
+        }
+      ],
+      "right": 3
+    },
+    {
+      "run_id": "notes-4206-s02-76e6fd",
+      "issue": 4206,
+      "notes_shown": false,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "CHANGELOG.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "test/dedupe.test.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/db/repos/reportRepo.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "docs/API.md",
+          "truth": "yes",
+          "answer": "no"
+        },
+        {
+          "path": "src/util/retry.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "docs/ARCHITECTURE.md",
+          "truth": "yes",
+          "answer": "no"
+        }
+      ],
+      "right": 3
+    },
+    {
+      "run_id": "notes-4203-s01-b77907",
+      "issue": 4203,
+      "notes_shown": true,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "CHANGELOG.md",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/api/errors.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/i18n/en.json",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "package.json",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/util/pagination.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "README.md",
+          "truth": "yes",
+          "answer": "yes"
+        }
+      ],
+      "right": 6
+    },
+    {
+      "run_id": "notes-4203-s02-eb958a",
+      "issue": 4203,
+      "notes_shown": true,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "src/i18n/fr.json",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/db/migrations/003_timezone.sql",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/i18n/en.json",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/api/errors.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/ingest/errors.ts",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/db/repos/userRepo.ts",
+          "truth": "no",
+          "answer": "no"
+        }
+      ],
+      "right": 6
+    },
+    {
+      "run_id": "notes-4204-s01-5373a7",
+      "issue": 4204,
+      "notes_shown": true,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "README.md",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/db/repos/transactionRepo.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/util/pagination.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "docs/API.md",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "test/exportUtils.test.ts",
+          "truth": "no",
+          "answer": "no"
+        }
+      ],
+      "right": 6
+    },
+    {
+      "run_id": "notes-4204-s02-5aa632",
+      "issue": 4204,
+      "notes_shown": true,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "CHANGELOG.md",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/i18n/en.json",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/api/errors.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "README.md",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/db/migrations/001_init.sql",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/notifications/templates.ts",
+          "truth": "no",
+          "answer": "no"
+        }
+      ],
+      "right": 6
+    },
+    {
+      "run_id": "notes-4206-s01-22d086",
+      "issue": 4206,
+      "notes_shown": true,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "docs/ARCHITECTURE.md",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/exportUtils.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "src/types.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": ".eslintrc.json",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "docs/API.md",
+          "truth": "yes",
+          "answer": "yes"
+        }
+      ],
+      "right": 6
+    },
+    {
+      "run_id": "notes-4206-s02-6a56cd",
+      "issue": 4206,
+      "notes_shown": true,
+      "compacted": true,
+      "questions": [
+        {
+          "path": "src/api/router.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/export/csv.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "docs/API.md",
+          "truth": "yes",
+          "answer": "yes"
+        },
+        {
+          "path": "src/util/pagination.ts",
+          "truth": "no",
+          "answer": "no"
+        },
+        {
+          "path": "docs/ARCHITECTURE.md",
+          "truth": "yes",
+          "answer": "yes"
+        }
+      ],
+      "right": 6
+    }
+  ]
 }

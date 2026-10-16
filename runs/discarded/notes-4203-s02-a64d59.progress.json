@@ -1,0 +1,41 @@
+{
+ "about": "RepoMind's progress file for this run, written by its code after every step. steps_done: the plan steps that have run, in order. paths_seen: every file path a search returned or a read read in this run, in the order first seen. It is a record of what this run has already seen, not a list of things to do.",
+ "steps_done": [
+  1,
+  2,
+  5,
+  6,
+  3,
+  4
+ ],
+ "paths_seen": [
+  "src/i18n/en.json",
+  ".eslintrc.json",
+  "docs/ARCHITECTURE.md",
+  "package.json",
+  "src/api/auth.ts",
+  "src/api/reports.ts",
+  "src/api/uploads.ts",
+  "src/api/users.ts",
+  "src/config.ts",
+  "src/ingest/parser.ts",
+  "src/util/dates.ts",
+  "src/util/money.ts",
+  "src/util/pagination.ts"
+ ],
+ "paths": [
+  "src/i18n/en.json",
+  ".eslintrc.json",
+  "docs/ARCHITECTURE.md",
+  "package.json",
+  "src/api/auth.ts",
+  "src/api/reports.ts",
+  "src/api/uploads.ts",
+  "src/api/users.ts",
+  "src/config.ts",
+  "src/ingest/parser.ts",
+  "src/util/dates.ts",
+  "src/util/money.ts",
+  "src/util/pagination.ts"
+ ]
+}

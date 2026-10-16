@@ -1,0 +1,43 @@
+{
+ "about": "RepoMind's progress file for this run, written by its code after every step. steps_done: the plan steps that have run, in order. paths_seen: every file path a search returned or a read read in this run, in the order first seen. It is a record of what this run has already seen, not a list of things to do.",
+ "steps_done": [
+  1,
+  2,
+  5,
+  6,
+  3,
+  4
+ ],
+ "paths_seen": [
+  "CHANGELOG.md",
+  "docs/API.md",
+  "docs/ARCHITECTURE.md",
+  "docs/CONFIG.md",
+  "src/api/reports.ts",
+  "src/components/ReportTable.tsx",
+  "README.md",
+  "package.json",
+  "src/api/uploads.ts",
+  "src/api/auth.ts",
+  "src/api/errors.ts",
+  "src/api/users.ts",
+  "src/components/DateRangePicker.tsx",
+  "src/components/ExportButton.tsx"
+ ],
+ "paths": [
+  "CHANGELOG.md",
+  "docs/API.md",
+  "docs/ARCHITECTURE.md",
+  "docs/CONFIG.md",
+  "src/api/reports.ts",
+  "src/components/ReportTable.tsx",
+  "README.md",
+  "package.json",
+  "src/api/uploads.ts",
+  "src/api/auth.ts",
+  "src/api/errors.ts",
+  "src/api/users.ts",
+  "src/components/DateRangePicker.tsx",
+  "src/components/ExportButton.tsx"
+ ]
+}

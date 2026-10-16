@@ -28,28 +28,77 @@ on fixtures/traces/, so keep these exact signatures (checks/FORMATS.md, section
     plan    a plan (section 10.1)
     trace   a list of trace lines, as harness.trace.read_trace returns them
 
-A plan with no depends_on cannot answer question 2 from the plan. Answer it from
-the trace, and say how in your report.
+A plan with no depends_on cannot answer question 2 from the plan. Here it is then
+answered from the trace, as a judgment: a call whose result the run fetched again
+later, with the same tool and the same arguments, was not used (had it been, there
+was no reason to fetch it again).
 """
 
 from __future__ import annotations
 
+import json
+
+from agent.diff import match
+
+
+def _key(line: dict) -> str:
+    return json.dumps([line.get("name"), line.get("input") or {}], sort_keys=True)
+
 
 def repeat_check(trace: list[dict]) -> list[list]:
-    raise NotImplementedError("Assignment 2 Part E: the repeat check")
+    groups: dict[str, list] = {}
+    for line in trace:
+        if line.get("type") == "tool_call":
+            groups.setdefault(_key(line), []).append(line.get("step"))
+    return [steps for steps in groups.values() if len(steps) > 1]
 
 
 def orphan_check(plan: dict) -> list:
-    raise NotImplementedError("Assignment 2 Part E: the orphan check")
+    steps = plan.get("steps") or []
+    orphans = []
+    for i, step in enumerate(steps[:-1]):
+        later = steps[i + 1:]
+        if not any(step.get("id") in (s.get("depends_on") or []) for s in later):
+            orphans.append(step.get("id"))
+    return orphans
 
 
 def expected_result_check(plan: dict, trace: list[dict]) -> list:
-    raise NotImplementedError("Assignment 2 Part E: the expected-result check")
+    matched, _ = match(plan, trace)
+    missing = []
+    for step in plan.get("steps") or []:
+        lines = matched[str(step.get("id"))]
+        if not lines or all(line.get("is_error") for line in lines):
+            missing.append(step.get("id"))
+    return missing
+
+
+def unused_from_trace(trace: list[dict]) -> list:
+    """Question 2 with no depends_on: the tool_call steps whose result an exact repeat
+    fetched again later."""
+    calls = [x for x in trace if x.get("type") == "tool_call"]
+    return [c.get("step") for i, c in enumerate(calls) if any(_key(c) == _key(d) for d in calls[i + 1:])]
 
 
 def ladder(plan: dict, trace: list[dict]) -> dict:
-    raise NotImplementedError("Assignment 2 Part E: questions 1 to 3")
+    repeats = repeat_check(trace)
+    has_deps = any("depends_on" in s for s in plan.get("steps") or [])
+    unused = orphan_check(plan) if has_deps else unused_from_trace(trace)
+    skipped = expected_result_check(plan, trace)
+    return {"q1": {"fired": bool(repeats), "ids": repeats},
+            "q2": {"fired": bool(unused), "ids": unused},
+            "q3": {"fired": bool(skipped), "ids": skipped}}
 
 
 if __name__ == "__main__":
-    raise SystemExit("Assignment 2 Part E: print both runs' ladders here, if you like")
+    from pathlib import Path
+
+    from agent.diff import diff
+    from harness.trace import read_trace
+
+    root = Path(__file__).resolve().parent.parent / "fixtures" / "traces"
+    for run in ("looping", "s49"):
+        plan = json.loads((root / run / "plan.json").read_text())
+        trace = read_trace(root / run / "trace.jsonl")
+        print(run, json.dumps(ladder(plan, trace)))
+        print(run, "diff", json.dumps(diff(plan, trace)))

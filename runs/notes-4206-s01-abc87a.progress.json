@@ -1,0 +1,28 @@
+{
+ "about": "RepoMind's progress file for this run, written by its code after every step. steps_done: the plan steps that have run, in order. paths_seen: every file path a search returned or a read read in this run, in the order first seen. It is a record of what this run has already seen, not a list of things to do.",
+ "steps_done": [
+  1,
+  2,
+  5,
+  3,
+  4
+ ],
+ "paths_seen": [
+  "CHANGELOG.md",
+  "docs/API.md",
+  "docs/ARCHITECTURE.md",
+  "docs/CONFIG.md",
+  "src/api/reports.ts",
+  "src/components/ReportTable.tsx",
+  "src/util/money.ts"
+ ],
+ "paths": [
+  "CHANGELOG.md",
+  "docs/API.md",
+  "docs/ARCHITECTURE.md",
+  "docs/CONFIG.md",
+  "src/api/reports.ts",
+  "src/components/ReportTable.tsx",
+  "src/util/money.ts"
+ ]
+}

@@ -40,10 +40,75 @@ Keep your prompts in prompts/.
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
+from harness.formats import LABELS, parse_triage_comment
+from harness.trace import read_trace
+
+ROOT = Path(__file__).resolve().parent.parent
+CRITIC_PROMPT = "prompts/critic.md"
+
+VERDICT_TOOL = {
+    "name": "verdict",
+    "description": "Accept the draft comment as it is, or ask for a revision and say why.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "decision": {"type": "string", "enum": ["accept", "revise"]},
+            "reason": {"type": ["string", "null"], "description": "Why it must change; null on accept."},
+        },
+        "required": ["decision", "reason"],
+        "additionalProperties": False,
+    },
+    "strict": True,
+}
+
+
+def seen_paths(ctx) -> list[str]:
+    """Every path this run's tool calls returned so far, in order: its own record."""
+    seen = []
+    for line in read_trace(ctx.trace.path):
+        if line.get("type") == "tool_call":
+            seen += [p for p in line.get("paths") or [] if p not in seen]
+    return seen
+
 
 def verify(draft: str, ctx) -> dict:
-    raise NotImplementedError("Assignment 2 Part D: the external checks")
+    label, file = parse_triage_comment(draft)
+    reasons = []
+    # 1. It parses: a known label, and a file line with a path or none.
+    if label not in LABELS:
+        reasons.append(f"parses: the label line must be one of {', '.join(LABELS)}, not {label!r}")
+    if file is None:
+        reasons.append("parses: there is no 'file:' line; give a path or none")
+    if file not in (None, "none"):
+        # 2. The path exists in the repository.
+        if not (Path(ctx.root) / "fixtures" / "repo" / file).is_file():
+            reasons.append(f"exists: {file} is not a file in the repository")
+        # 3. This run saw it: a search returned it or a read read it.
+        elif file not in seen_paths(ctx):
+            reasons.append(f"seen: no search or read in this run returned {file}")
+    # 4. The label and the file agree.
+    if label == "question" and file not in (None, "none"):
+        reasons.append("agree: a question names no file (file: none)")
+    if label in LABELS and label != "question" and file == "none":
+        reasons.append(f"agree: a {label} must name the file it concerns, not none")
+    return {"passed": not reasons, "reasons": reasons}
 
 
-def self_critique(client, draft: str, evidence: dict, trace=None) -> dict:
-    raise NotImplementedError("Assignment 2 Part D: the self critique")
+def self_critique(client, draft: str, evidence: dict, trace=None, step: int = 0) -> dict:
+    system = (ROOT / CRITIC_PROMPT).read_text()
+    user = (f"The issue:\n{evidence.get('issue') or '(not read)'}\n\n"
+            f"What the run found, step by step:\n{json.dumps(evidence.get('steps') or [], indent=1)}\n\n"
+            f"The draft to check:\n{draft}")
+    response = client.create(system=system, messages=[{"role": "user", "content": user}], tools=[VERDICT_TOOL])
+    if trace is not None:
+        trace.model_call(step, response, purpose="critique")
+    for call in response.tool_calls:
+        if call.name == VERDICT_TOOL["name"] and call.input.get("decision") in ("accept", "revise"):
+            decision = call.input["decision"]
+            reason = call.input.get("reason") if decision == "revise" else None
+            return {"decision": decision, "reason": reason or ("revise" if decision == "revise" else None)}
+    # No verdict: an unreadable critique is not an accept.
+    return {"decision": "revise", "reason": "the critic gave no verdict: " + (response.text[:200] or "empty reply")}
